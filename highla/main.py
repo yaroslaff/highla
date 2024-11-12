@@ -54,8 +54,8 @@ def diag1():
 
     if args.size:
         diag1_state['sizes'] = file_sizes_by_glob(args.size); 
-        for filename, size in diag1_state['sizes'].items():
-            print(f"{filename} {size}")
+        #for filename, size in diag1_state['sizes'].items():
+        #    print(f"{filename} {size}")
 
     if args.script:
         print(f"## User script {args.script}")
@@ -63,14 +63,14 @@ def diag1():
     
 def diag2():
     if args.size:
-        print(f"## File sizes diff")
+        print(f"## File sizes difference")
         sizes = file_sizes_by_glob(args.size)
         size_diff = {path: abs(sizes.get(path, 0) - diag1_state['sizes'].get(path, 0)) for path in set(sizes) | set(diag1_state['sizes'])}
         n = 5
         top_n = sorted(size_diff.items(), key=lambda item: item[1], reverse=True)[:n]
         for path, diff in top_n:
-            print(f"{path} {diff}")
-
+            sz = os.path.getsize(path)
+            print(f"{path} sz: {sz} diff: {diff}")
 
 
 def one_check():
