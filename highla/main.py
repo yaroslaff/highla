@@ -90,7 +90,7 @@ def diag2():
             print(f"{path} sz: {sz} diff: {diff}")
             line = get_last_line(path)
             if line:
-                print(f"  {line!r}")
+                print(f"  {line}")
 
 
 def one_check():
