@@ -107,7 +107,7 @@ def one_check():
         time.sleep(args.wait)
         diag2()
     
-    if args.poll:
+    if args.loop:
         print("---\n")    
 
 def get_args():
@@ -117,7 +117,7 @@ def get_args():
     parser.add_argument('LA', type=float, help='Load Average threshold')
     parser.add_argument('-s', '--script', help='Your custom diagnostic script')
     parser.add_argument('-w', '--wait', type=int, default=10, help='Wait time before 2nd diag run')
-    parser.add_argument('--poll', type=int, metavar='SEC', help='Poll every N seconds')
+    parser.add_argument('--loop', type=int, metavar='SEC', help='Repeat in loop every N seconds')
 
     g = parser.add_argument_group('Built-in diagnostics')
     g.add_argument('--top', type=int, help='Report top N processes')
@@ -131,9 +131,9 @@ def main():
     global args
     args = get_args()
 
-    if args.poll:
+    if args.loop:
         while True:
             one_check()
-            time.sleep(args.poll)            
+            time.sleep(args.loop)
     else:
         return one_check()
