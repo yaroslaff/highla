@@ -8,10 +8,10 @@ build-backend = "hatchling.build"
 [project]
 name="highla"
 dynamic = [ "version" ]
-keywords = [ "top", "load average", "diagnostic", "monitoring" ]
+keywords = [ "top", "load average", "diagnostic", "monitoring", "netstat", "uptime", "usage", "load", "load-average", "mysql", "mariadb", "postgresql", "performance", "ddos" ]
 
 dependencies = [
-    'psutil',
+    'psutil >= 6.0.0',
 ]
 authors = [
   { name="Yaroslav Polyakov", email="yaroslaff@gmail.com" },
