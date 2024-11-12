@@ -4,6 +4,7 @@ import datetime
 import subprocess
 import glob
 import os
+import string
 from collections import defaultdict
 
 from .version import __version__
@@ -12,6 +13,22 @@ import time
 
 args = None
 diag1_state = dict()
+
+def get_last_line(file_path):
+    file_size = os.path.getsize(file_path)
+
+    with open(file_path, 'rb') as f:
+        if file_size>1024:
+            f.seek(-1024, os.SEEK_END)
+        # Read the last 1024 bytes
+        last_chunk = f.read(1024)
+        chunk_str = last_chunk.decode('utf-8', errors='strict')
+        lines = chunk_str.splitlines()
+        if lines:
+            if all(c in string.printable for c in lines[-1]):
+                return lines[-1]
+
+        return None
 
 
 def file_sizes_by_glob(patterns):
@@ -71,6 +88,9 @@ def diag2():
         for path, diff in top_n:
             sz = os.path.getsize(path)
             print(f"{path} sz: {sz} diff: {diff}")
+            line = get_last_line(path)
+            if line:
+                print(f"  {line!r}")
 
 
 def one_check():
