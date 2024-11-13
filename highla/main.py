@@ -137,8 +137,11 @@ def main():
     args = get_args()
 
     if args.loop:
-        while True:
-            one_check()
-            time.sleep(args.loop)
+        try:
+            while True:
+                one_check()
+                time.sleep(args.loop)
+        except KeyboardInterrupt:
+            pass
     else:
         return one_check()
