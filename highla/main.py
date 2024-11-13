@@ -4,6 +4,7 @@ import datetime
 import subprocess
 import glob
 import os
+import sys
 import string
 from collections import defaultdict
 
@@ -76,7 +77,11 @@ def diag1():
 
     if args.script:
         print(f"## User script {args.script}")
+        sys.stdout.flush()
+        sys.stderr.flush()
         subprocess.run(args.script, shell=False)
+        sys.stdout.flush()
+        sys.stderr.flush()
     
 def diag2():
     if args.size:
